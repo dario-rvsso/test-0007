@@ -10,8 +10,14 @@ on:
     secrets:
       some-secret:
         required: false
+    outputs:
+      result:
+        description: The result of workflow
+        value: ${{ jobs.deploy.outputs.outcome }}
 jobs:
   deploy:
+    output:
+      outcome: ${{ steps.set-result.step-result }}
     runs-on: ubuntu-latest
     steps:
       - name: Get code
@@ -27,3 +33,7 @@ jobs:
           SECRET_VALUE: ${{ secrets.some-secret }}
       - name: Output info
         run: echo "Deploying..."
+      - name: Result output
+        id: set-result
+        run: echo "step-result=success" >>$GITHUB_OUTPUT
+
