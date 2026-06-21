@@ -75,7 +75,7 @@ jobs:
     with:
       artifact-name: dist-files
     secrets:
-      some-secret: "DUMMY"
+      some-secret: ${{ secrets.DUMMY }}
   report:
     needs: [lint, deploy]
     if: ${{ failure() }}
