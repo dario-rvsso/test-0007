@@ -22,6 +22,8 @@ jobs:
         run: ls -R
       - name: Check secret
         run: |
-          if [ "${{ secrets.some-secret}}" = "Some_Secret" ]; then echo "Secret matches"; else echo "Secret does not match"; fi
+          if [ "$SECRET_VALUE" = "Some_Secret" ]; then echo "Secret matches"; else echo "Secret does not match"; fi
+        env:
+          SECRET_VALUE: ${{ secrets.some-secret }}
       - name: Output info
         run: echo "Deploying..."
